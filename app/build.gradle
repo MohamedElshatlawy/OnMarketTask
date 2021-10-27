@@ -21,13 +21,13 @@ android {
 
     buildTypes {
         debug{
-            buildConfigField 'String', 'apiKey', '"YOUR_API_KEY"'
+            buildConfigField 'String', 'apiKey', '"a78c901a2e6833523e55ca74fab176d2"'
             buildConfigField 'String', 'baseUrl', '"https://api.themoviedb.org/3/"'
             buildConfigField 'String', 'imageBaseUrl', '"https://image.tmdb.org/t/p/w500/"'
 
         }
         release {
-            buildConfigField 'String', 'apiKey', '"YOUR_API_KEY"'
+            buildConfigField 'String', 'apiKey', '"a78c901a2e6833523e55ca74fab176d2"'
             buildConfigField 'String', 'baseUrl', '"https://api.themoviedb.org/3/"'
             buildConfigField 'String', 'imageBaseUrl', '"https://image.tmdb.org/t/p/w500/"'
             minifyEnabled false
