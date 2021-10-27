@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="Item"
+            type="com.example.movieappclean.domain.entities.local.MovieLocal" />
+    </data>
+    <androidx.core.widget.NestedScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context=".ui.ui.singlemovie.MovieDetailActivity"
+        tools:showIn="@layout/fragment_movie_details"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteY="365dp">
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/taglineValueTv"
+                android:layout_width="0dp"
+                android:text="@{Item.tagline}"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/md_keylinesV"
+                android:scrollHorizontally="true"
+                android:textAppearance="@style/TextStyle"
+                android:textAlignment="viewStart"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/mainFont"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/tagline_divider"
+                />
+            <LinearLayout
+                android:id="@+id/grouper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/genres_divider">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".495"
+                    android:orientation="vertical">
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:weightSum="1">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/statusTv"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".25"
+                            android:padding="@dimen/md_keylinesV"
+                            android:text="@string/status"
+                            android:textColor="@color/colorAccent"
+                            android:textAppearance="@style/TextStyle"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/statusValueTv"
+                            android:layout_width="0dp"
+                            android:text="@{Item.status}"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".75"
+                            android:padding="@dimen/md_keylinesV"
+                            android:textAlignment="viewEnd"
+                            android:textColor="@color/second"
+                            android:textAppearance="@style/TextStyle" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                    <View
+                        android:id="@+id/status_divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="@dimen/md_keylinesV"
+                        android:layout_marginBottom="@dimen/md_keylinesV"
+                        android:background="@color/divider" />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/voteAverageTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:paddingBottom="5dp"
+                            android:paddingTop="5dp"
+                            android:layout_gravity="center_vertical"
+                            android:text="@string/vote_average"
+                            android:textColor="@color/colorAccent"
+                            android:textAppearance="@style/TextStyle"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toStartOf="@id/voteAverageValueTv"
+                            app:layout_constraintStart_toStartOf="parent"
+                            android:layout_margin="1dp"
+                            />
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/voteAverageValueTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:padding="5dp"
+                            android:layout_gravity="center_vertical"
+                            android:text="@{String.format(@string/rating,Item.ratingStr())}"
+                            android:textColor="@color/colorAccent"
+                            android:textAppearance="@style/TextStyle"
+                            android:textStyle="bold"
+                            android:layout_margin="1dp"
+                            app:layout_constraintEnd_toStartOf="@id/rBar"
+                            app:layout_constraintStart_toEndOf="@id/voteAverageTv"
+                            />
+                        <androidx.appcompat.widget.AppCompatRatingBar
+                            android:id="@+id/rBar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            style="@style/RatingBar"
+                            android:progress="@{Item.voteInt()}"
+                            tools:progress="8"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/voteAverageValueTv"
+                            />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <View
+                        android:id="@+id/voteAverage_divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="@dimen/md_keylinesV"
+                        android:layout_marginBottom="@dimen/md_keylinesV"
+                        android:background="@color/divider" />
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:weightSum="1">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/budgetTv"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".25"
+                            android:padding="@dimen/md_keylinesV"
+                            android:text="@string/budget"
+                            android:textColor="@color/colorAccent"
+                            android:textAppearance="@style/TextStyle"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/budgetValueTv"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".75"
+                            android:text="@{Item.budget}"
+                            android:padding="@dimen/md_keylinesV"
+                            android:textAlignment="viewEnd"
+                            android:textColor="@color/second"
+                            android:textAppearance="@style/TextStyle"/>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <View
+                        android:id="@+id/budget_divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="@dimen/md_keylinesV"
+                        android:layout_marginBottom="@dimen/md_keylinesV"
+                        android:background="@color/divider" />
+
+                </LinearLayout>
+                <View
+                    android:id="@+id/column_divider"
+                    android:layout_width="0dp"
+                    android:layout_weight=".01"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/md_keylinesV"
+                    android:layout_marginBottom="@dimen/md_keylinesV"
+                    android:background="@color/divider"
+
+                    />
+                <LinearLayout
+                    android:id="@+id/rightcontainer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".495"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:weightSum="1">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/releaseDateTv"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".25"
+                            android:padding="@dimen/md_keylinesV"
+                            android:text="@string/release_date"
+                            android:textColor="@color/colorAccent"
+                            android:textAppearance="@style/TextStyle"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/releaseDateValueTv"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".75"
+
+                            android:text="@{Item.releaseDate}"
+                            android:padding="@dimen/md_keylinesV"
+                            android:textAlignment="viewStart"
+                            android:textColor="@color/second"
+                            android:textAppearance="@style/TextStyle" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                    <View
+                        android:id="@+id/releaseDate_divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="@dimen/md_keylinesV"
+                        android:layout_marginBottom="@dimen/md_keylinesV"
+                        android:background="@color/divider" />
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:weightSum="1">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/runtimeTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".25"
+                            android:padding="@dimen/md_keylinesV"
+                            android:text="@string/runtime"
+                            android:textColor="@color/colorAccent"
+                            android:textAppearance="@style/TextStyle"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/runtimeValueTv"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".75"
+                            android:text="@{String.format(@string/time,Item.runtime)}"
+                            android:padding="@dimen/md_keylinesV"
+                            android:textAlignment="viewStart"
+                            android:textColor="@color/second"
+                            android:textAppearance="@style/TextStyle" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                    <View
+                        android:id="@+id/runtime_divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="@dimen/md_keylinesV"
+                        android:layout_marginBottom="@dimen/md_keylinesV"
+                        android:background="@color/divider"
+                        />
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:weightSum="1">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/original_languageTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".25"
+                            android:padding="@dimen/md_keylinesV"
+                            android:text="@string/original_language"
+                            android:textColor="@color/colorAccent"
+                            android:textAppearance="@style/TextStyle"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/original_languageValueTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".75"
+                            android:text="@{Item.originalLanguage}"
+                            android:padding="@dimen/md_keylinesV"
+                            android:textAlignment="viewStart"
+                            android:textColor="@color/second"
+                            android:textAppearance="@style/TextStyle" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                    <View
+                        android:id="@+id/original_language_divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="@dimen/md_keylinesV"
+                        android:layout_marginBottom="@dimen/md_keylinesV"
+                        android:background="@color/divider"
+                        />
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:weightSum="1">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/revenueTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".25"
+                            android:padding="@dimen/md_keylinesV"
+                            android:text="@string/revenue"
+                            android:textColor="@color/colorAccent"
+                            android:textAppearance="@style/TextStyle"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/revenueValueTv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".75"
+                            android:text="@{Item.revenue}"
+                            android:padding="@dimen/md_keylinesV"
+                            android:textAlignment="viewStart"
+                            android:textColor="@color/second"
+                            android:textAppearance="@style/TextStyle" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <View
+                        android:id="@+id/revenue_divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="@dimen/md_keylinesV"
+                        android:layout_marginBottom="@dimen/md_keylinesV"
+                        android:background="@color/divider"
+                        />
+
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+            <View
+                android:id="@+id/grouper_divider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/md_keylinesV"
+                android:layout_marginBottom="@dimen/md_keylinesV"
+                android:background="@color/divider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/grouper" />
+            <View
+                android:id="@+id/tagline_divider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/md_keylinesV"
+                android:layout_marginBottom="@dimen/md_keylinesV"
+                android:background="@color/divider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/taglineValueTv" />
+
+            <View
+                android:id="@+id/overview_divider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/md_keylinesV"
+                android:layout_marginBottom="@dimen/md_keylinesV"
+                android:background="@color/divider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/overviewValueTv" />
+
+            <View
+                android:id="@+id/genres_divider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/md_keylinesV"
+                android:layout_marginBottom="@dimen/md_keylinesV"
+                android:background="@color/divider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/genresTv" />
+
+            <View
+                android:id="@+id/production_companies_divider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/md_keylinesV"
+                android:layout_marginBottom="@dimen/md_keylinesV"
+                android:background="@color/divider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/production_companiesValueTv" />
+
+            <View
+                android:id="@+id/production_countries_divider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/md_keylinesV"
+                android:layout_marginBottom="@dimen/md_keylinesV"
+                android:background="@color/divider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/production_countriesValueTv" />
+
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/overviewTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/md_keylinesV"
+                android:text="@string/overview"
+                android:textColor="@color/colorAccent"
+                android:textAppearance="@style/TextStyle"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tagline_divider" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/overviewValueTv"
+        android:padding="@dimen/md_keylinesV"
+        android:textAlignment="viewStart"
+        android:textColor="@color/second"
+        android:text="@{Item.overview}"
+        android:textAppearance="@style/TextStyle"
+        app:layout_constraintStart_toEndOf="@+id/overviewTv"
+        app:layout_constraintTop_toBottomOf="@+id/tagline_divider"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/genresTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/md_keylinesV"
+                android:text="@string/genres"
+                android:textColor="@color/colorAccent"
+                android:textAppearance="@style/TextStyle"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/overview_divider" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/genresValueTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/md_keylinesV"
+                android:text="@{Item.genres}"
+                android:textAlignment="viewStart"
+                android:textColor="@color/second"
+                android:textAppearance="@style/TextStyle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/genresTv"
+                app:layout_constraintTop_toBottomOf="@id/overview_divider" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/production_companiesTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/md_keylinesV"
+                android:text="@string/production_companies"
+                android:textColor="@color/colorAccent"
+                android:textAppearance="@style/TextStyle"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/grouper" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/production_companiesValueTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/md_keylinesV"
+                android:textAlignment="viewStart"
+                android:textColor="@color/second"
+                android:text="@{Item.productionCompanies}"
+                android:maxLines="6"
+                android:scrollbarSize="0dp"
+                android:textAppearance="@style/TextStyle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/production_companiesTv"
+                app:layout_constraintTop_toBottomOf="@id/grouper" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/production_countriesTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/md_keylinesV"
+                android:text="@string/production_countries"
+                android:textColor="@color/colorAccent"
+                android:textAppearance="@style/TextStyle"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/production_companies_divider" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/production_countriesValueTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/md_keylinesV"
+                android:textAlignment="viewStart"
+                android:textColor="@color/second"
+                android:maxLines="5"
+                android:text="@{Item.productionCountries}"
+                android:textAppearance="@style/TextStyle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/production_countriesTv"
+                app:layout_constraintTop_toBottomOf="@+id/production_companies_divider" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+</layout>

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+    <data>
+        <import type="android.view.View"/>
+        <import type="com.example.movieappclean.domain.entities.common.Status"/>
+        <variable
+            name="viewModel"
+            type="com.example.movieappclean.presentation.ui.details.MovieDetailsViewModel" />
+
+    </data>
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            tools:context=".presentation.ui.details.MovieDetailsFragment">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/app_bar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/app_bar_height"
+                android:fitsSystemWindows="true"
+                android:theme="@style/Theme.MyMVDB.AppBarOverlay">
+
+                <com.google.android.material.appbar.CollapsingToolbarLayout
+                    android:id="@+id/toolbar_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fitsSystemWindows="true"
+                    app:contentScrim="?attr/colorPrimary"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                    app:toolbarId="@+id/toolbar">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/backDropHeight"
+                        android:scaleType="fitXY"
+                        android:id="@+id/posterImage"
+                        loadImage="@{viewModel.data.backdropPath}"
+                        loadShimmer="@{shimmerFrameLayout}"
+                        />
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/shimmerFrameLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:animateLayoutChanges="true"
+                        app:layout_constraintBottom_toBottomOf="@+id/ImageView"
+                        app:layout_constraintEnd_toEndOf="@+id/ImageView"
+                        app:layout_constraintStart_toStartOf="@+id/ImageView"
+                        app:layout_constraintTop_toTopOf="@+id/ImageView"
+                        tools:visibility="invisible">
+
+                        <include layout="@layout/image_place_holder" />
+                    </com.facebook.shimmer.ShimmerFrameLayout>
+                    <androidx.appcompat.widget.Toolbar
+                        android:id="@+id/toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        app:layout_collapseMode="pin"
+                        app:popupTheme="@style/Theme.MyMVDB.PopupOverlay"
+                        app:title="@{viewModel.data.title}"
+                        app:buttonGravity="top"
+                        app:navigationIcon="@drawable/ic_arrow_back"
+                        />
+
+                </com.google.android.material.appbar.CollapsingToolbarLayout>
+            </com.google.android.material.appbar.AppBarLayout>
+            <include
+                android:id="@+id/included"
+                layout="@layout/content_scrolling"
+                app:Item="@{viewModel.data}"
+                android:visibility="@{viewModel.isLoading() ? View.GONE:viewModel.isError()?View.GONE:View.VISIBLE}"
+                />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                >
+            <androidx.core.widget.ContentLoadingProgressBar
+                android:id="@+id/package_empty"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="23dp"
+                android:paddingTop="21dp"
+                android:scaleX=".5"
+                android:scaleY=".5"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:visibility="@{viewModel.isLoading() ? View.VISIBLE:View.GONE}"
+                tools:visibility="visible" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/package_error_txt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="23dp"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                android:textColor="@color/purple_500"
+                app:layout_constraintBottom_toTopOf="@id/package_try_again"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:text="@string/error" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/package_try_again"
+                style="?materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> viewModel.fetchData()}"
+                android:text="@string/try_again"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/package_error_txt" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/error_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="package_error_txt, package_try_again"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:visibility="@{viewModel.isError() ?View.VISIBLE:View.GONE}"
+                tools:visibility="gone" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </layout>

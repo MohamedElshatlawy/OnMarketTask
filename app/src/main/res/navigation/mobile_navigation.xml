@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mobile_navigation.xml"
+    app:startDestination="@id/nav_popular">
+
+    <fragment
+        android:id="@+id/nav_popular"
+        android:name="com.example.movieappclean.presentation.ui.popular.PopularFragment"
+        android:label="PopularFragment" >
+        <action
+            android:id="@+id/action_nav_popular_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_toprated"
+        android:name="com.example.movieappclean.presentation.ui.toprated.TopRatedFragment"
+        android:label="TopRatedFragment" >
+        <action
+            android:id="@+id/action_nav_toprated_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_playing"
+        android:name="com.example.movieappclean.presentation.ui.nowplaying.NowPlayingFragment"
+        android:label="NowPlayingFragment" >
+        <action
+            android:id="@+id/action_nav_playing_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/movieDetailsFragment"
+        android:name="com.example.movieappclean.presentation.ui.details.MovieDetailsFragment"
+        android:label="MovieDetailsFragment" >
+        <argument
+            android:name="movie_id"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
+</navigation>

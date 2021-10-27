@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">MovieAppClean</string>
+    <string name="title_topRated">Top Movies</string>
+    <string name="title_popular">Popular</string>
+    <string name="title_playing">Now Playing</string>
+    <string name="error">Error</string>
+    <string name="error_unknown">Unknown error</string>
+    <string name="error_io">Check your connection and try again</string>
+    <string name="error_time_out">Connection is poor</string>
+    <string name="error_try_again">Error Try again</string>
+    <string name="unknown">Unknown</string>
+    <string name="try_again">Try Again</string>
+    <string name="cancel">Cancel</string>
+    <string name="Unauthenticated">Unauthenticated</string>
+    <string name="empty">No Movies Found!</string>
+    <string name="rating">%1$s/10</string>
+    <string name="production_countries">Production Countries</string>
+    <string name="production_companies">Production Companies</string>
+    <string name="genres">Genres</string>
+    <string name="overview">Overview</string>
+    <string name="revenue">Revenue</string>
+    <string name="original_language">Original Language</string>
+    <string name="runtime">Runtime</string>
+    <string name="release_date">ReleaseDate</string>
+    <string name="status">Status</string>
+    <string name="time">%1$s Min</string>
+    <string name="budget">Budget</string>
+    <string name="vote_average">Rating</string>
+</resources>

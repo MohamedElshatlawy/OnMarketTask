@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="handler"
+            type="com.example.movieappclean.presentation.ui.toprated.state.TopRatedViewStateHandler" />
+
+        <variable
+            name="viewModel"
+            type="com.example.movieappclean.presentation.ui.toprated.TopRatedViewModel" />
+        <variable
+            name="Adapter"
+            type="com.example.movieappclean.presentation.ui.toprated.adapter.TopRatedAdapter" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.ui.toprated.TopRatedFragment">
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:onRefreshListener="@{() -> handler.refresh()}"
+            app:refreshing="@{handler.isLoading(viewModel.viewState)}">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:overScrollMode="never"
+                android:scrollbars="vertical"
+                app:adapter="@{Adapter}"
+                app:spanCount="@integer/span_count"
+                app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+                tools:listitem="@layout/popular_list_item" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/package_empty"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="23dp"
+            android:paddingTop="21dp"
+            android:text="@string/empty"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            android:textColor="@color/purple_700"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="@{handler.isEmpty(viewModel.viewState)?View.VISIBLE:View.GONE}"
+            tools:visibility="gone" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/package_error_txt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="23dp"
+            android:text="@{handler.getErrorText(viewModel.viewState)}"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            android:textColor="@color/purple_500"
+            app:layout_constraintBottom_toTopOf="@id/package_try_again"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="@string/error" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/package_try_again"
+            style="?materialButtonOutlinedStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> handler.refresh()}"
+            android:text="@string/try_again"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/package_error_txt" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/error_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="package_error_txt, package_try_again"
+            app:layout_constraintBottom_toBottomOf="@+id/swipe"
+            app:layout_constraintTop_toTopOf="@id/swipe"
+            app:layout_constraintStart_toStartOf="@id/swipe"
+            app:layout_constraintEnd_toEndOf="@+id/swipe"
+            android:visibility="@{handler.hasState(viewModel.viewState) &amp;&amp; handler.isError(viewModel.viewState)?View.VISIBLE:View.GONE}"
+            tools:visibility="gone" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
